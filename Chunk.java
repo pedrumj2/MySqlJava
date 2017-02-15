@@ -8,16 +8,18 @@ public class Chunk {
     private int CHUNK = 1000;
     private ResultSet resultSet;
     private int chunkIndex;
+    private String query;
 
-    public Chunk(dbParams __dbParams) throws SQLException{
+    public Chunk(dbParams __dbParams, String __query) throws SQLException{
         sqlConnect = new SqlConnect(__dbParams);
         chunkIndex =0;
+        query = __query;
         resultSet = getChunk();
 
     }
 
     //gets the ith chunk of values from the main table
-    private ResultSet getNext(int __ith) throws SQLException{
+    public ResultSet Next() throws SQLException{
         if (resultSet.next()==false){
             resultSet = getChunk();
             if (resultSet.next() ==false){
@@ -30,14 +32,9 @@ public class Chunk {
     //gets the ith chunk of values from the main table
     private ResultSet getChunk() throws SQLException{
         ResultSet _resultSet;
-        String _query = "SELECT * FROM D12.labels limit " + CHUNK*chunkIndex + " , " + CHUNK;
+        String _query = query + " limit " + CHUNK*chunkIndex + " , " + CHUNK;
         _resultSet = sqlConnect.getQuery(_query);
         chunkIndex++;
         return _resultSet;
     }
-
-
-
-
-
 }

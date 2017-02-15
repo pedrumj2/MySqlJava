@@ -23,7 +23,6 @@ public class SqlConnect {
         TIMESTAMP
     }
 
-
     public SqlConnect(dbParams __dbParams ) throws SQLException {
 
         try{
