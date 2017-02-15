@@ -65,7 +65,7 @@ return null;
 
     }
 
-    public ResultSet getQuery(String __query) throws SQLException{
+    public ResultSet executeQuery(String __query) throws SQLException{
         ResultSet _output;
         _output =  stmt.executeQuery(__query);
         return _output;
