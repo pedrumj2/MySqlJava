@@ -30,7 +30,7 @@ public class Chunk {
     //gets the ith chunk of values from the main table
     private ResultSet getChunk() throws SQLException{
         ResultSet _resultSet;
-        String _query = query + " limit " + CHUNK*chunkIndex + " , " + CHUNK;
+        String _query = query + " limit " + (CHUNK*chunkIndex)+ " , " + CHUNK;
         _resultSet = sqlConnect.executeQuery(_query);
         chunkIndex++;
         return _resultSet;
