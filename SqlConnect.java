@@ -10,7 +10,6 @@ import java.sql.*;
 public class SqlConnect {
     public Statement stmt;
     private Connection connection;
-    private ResultSet rs;
     public enum SQLRET{
         SUCCESS,
         FAIL
@@ -42,22 +41,24 @@ public class SqlConnect {
     }
 
 
-
-    public Object getValAtIndex(String __column, int __row, TYPE __type ) throws SQLException{
+    //__row is zero based
+    public Object getValAtIndex(ResultSet __rs, String __column, int __row, TYPE __type ) throws SQLException{
         Object _output;
-      //  if (rs.next()==false){
-        //    return null;
-        //}
-        //_output = Calendar.getInstance() ;
+
         for (int i = 0 ; i < __row; i ++){
-            rs.next();
+            __rs.next();
         }
         if (__type == TYPE.DATE){
            // rs.getDate(__column);
           //  return _output;
         }
         else if (__type == TYPE.TIMESTAMP){
-            _output=rs.getTimestamp(__column);
+            _output=__rs.getTimestamp(__column);
+            return _output;
+        }
+
+        else if (__type == TYPE.INT ){
+            _output=__rs.getInt(__column);
             return _output;
         }
 
@@ -71,7 +72,7 @@ return null;
         return _output;
     }
 
-    public SQLRET execGetQueryIndex(String __query){
+/*    public SQLRET execGetQueryIndex(String __query){
 
         try{
             rs =  stmt.executeQuery(__query);
@@ -87,7 +88,7 @@ return null;
             System.out.println(ex);
             return SQLRET.FAIL;
         }
-    }
+    }*/
 
     public SQLRET updateQuery(String __string){
 
