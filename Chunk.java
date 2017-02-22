@@ -35,4 +35,9 @@ public class Chunk {
         chunkIndex++;
         return _resultSet;
     }
+
+    public void finalize() throws SQLException{
+        resultSet.close();
+        sqlConnect.close();
+    }
 }
