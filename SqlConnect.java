@@ -9,6 +9,7 @@ import java.util.List;
  */
 public class SqlConnect {
     public Statement stmt;
+    private DbParams dbParams;
     private Connection connection;
     public enum SQLRET{
         SUCCESS,
@@ -23,7 +24,7 @@ public class SqlConnect {
     }
 
     public SqlConnect(DbParams __dbParams ) throws SQLException {
-
+        dbParams = __dbParams;
         try{
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection("jdbc:mysql://" + __dbParams.ip + ":3306/" +__dbParams.dbName+"?useSSL=false", "root", __dbParams.password);
@@ -92,5 +93,26 @@ public class SqlConnect {
             _output.add(_md.getColumnName(i+1));
         }
         return _output;
+    }
+
+    public String insertQuery(ResultSet __resultSet, String __id, String __tableSource, String __tableDest) throws SQLException {
+        String _query = "insert into " +dbParams.dbName + "." + __tableDest + "(";
+        List<String> _columns = SqlConnect.getColumns(__resultSet);
+        for (int i = 0; i < _columns.size();i++){
+            if (!_columns.get(i).equals(__id)){
+                _query += _columns.get(i) + ", ";
+            }
+        }
+        _query = _query.substring(0, _query.length()-2);
+        _query += ") ";
+        _query += " select " ;
+        for (int i = 0; i < _columns.size();i++){
+            if (!_columns.get(i).equals(__id)){
+                _query += _columns.get(i) + ", ";
+            }
+        }
+        _query += " from " + dbParams.dbName + "." + __tableSource;
+        return _query;
+
     }
 }
