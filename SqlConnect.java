@@ -95,9 +95,20 @@ public class SqlConnect {
         return _output;
     }
 
+    public static List<String> getColumnTypes(ResultSet __resultSet) throws SQLException {
+        ResultSetMetaData _md = __resultSet.getMetaData();
+        List<String> _output = new ArrayList<>();
+
+        for (int i = 0; i < _md.getColumnCount();i++){
+            _output.add(_md.getColumnTypeName(i+1));
+        }
+        return _output;
+    }
+
     public String insertQuery(ResultSet __resultSet, String __id, String __tableSource, String __tableDest) throws SQLException {
         String _query = "insert into " +dbParams.dbName + "." + __tableDest + "(";
         List<String> _columns = SqlConnect.getColumns(__resultSet);
+
         for (int i = 0; i < _columns.size();i++){
             if (!_columns.get(i).equals(__id)){
                 _query += _columns.get(i) + ", ";
@@ -113,6 +124,35 @@ public class SqlConnect {
         }
         _query =  _query.substring(0, _query.length()-2);
         _query += " from " + dbParams.dbName + "." + __tableSource;
+        return _query;
+    }
+
+    public String insertSingleQuery(ResultSet __resultSet, String __id, String __tableSource, String __tableDest) throws SQLException {
+        String _query = "insert into " +dbParams.dbName + "." + __tableDest + "(";
+        List<String> _columns = SqlConnect.getColumns(__resultSet);
+        List<String> _types = SqlConnect.getColumnTypes(__resultSet);
+
+        for (int i = 0; i < _columns.size();i++){
+            if (!_columns.get(i).equals(__id)){
+                _query += _columns.get(i) + ", ";
+            }
+        }
+        _query = _query.substring(0, _query.length()-2);
+        _query += ") ";
+        _query += " values( " ;
+        for (int i = 0; i < _columns.size();i++){
+            if (!_columns.get(i).equals(__id)){
+                if (_types.get(i).equals("VARCHAR")){
+                    _query += "\"" +__resultSet.getObject(i+1) + "\"" + ", ";
+                }
+                else{
+                    _query += __resultSet.getObject(i+1) + ", ";
+
+                }
+            }
+        }
+        _query =  _query.substring(0, _query.length()-2);
+        _query += ")";
         return _query;
 
     }
