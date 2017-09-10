@@ -1,6 +1,8 @@
 package MySqlJava;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Pedrum on 1/14/2017.
@@ -60,7 +62,7 @@ public class SqlConnect {
             return _output;
         }
 
-return null;
+    return null;
 
     }
 
@@ -106,6 +108,15 @@ return null;
         stmt.close();
         connection.close();
 
+    }
 
+    public static List<String> getColumns(ResultSet __resultSet) throws SQLException {
+        ResultSetMetaData _md = __resultSet.getMetaData();
+        List<String> _output = new ArrayList<>();
+
+        for (int i = 0; i < _md.getColumnCount();i++){
+            _output.add(_md.getColumnName(i+1));
+        }
+        return _output;
     }
 }
