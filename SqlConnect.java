@@ -74,16 +74,14 @@ public class SqlConnect {
 
 
 
-    public SQLRET updateQuery(String __string) throws SQLException {
+    public void updateQuery(String __string) throws SQLException {
 
         stmt.execute(__string);
 
     }
     public void close() throws SQLException {
-
         stmt.close();
         connection.close();
-
     }
 
     public static List<String> getColumns(ResultSet __resultSet) throws SQLException {
