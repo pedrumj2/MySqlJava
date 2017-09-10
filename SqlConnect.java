@@ -72,35 +72,11 @@ public class SqlConnect {
         return _output;
     }
 
-/*    public SQLRET execGetQueryIndex(String __query){
-
-        try{
-            rs =  stmt.executeQuery(__query);
-            if(rs.next()){
-                return SQLRET.SUCCESS;
-            }
-            else{
-                return SQLRET.FAIL;
-            }
-
-        }
-        catch(java.sql.SQLException ex) {
-            System.out.println(ex);
-            return SQLRET.FAIL;
-        }
-    }*/
-
-    public SQLRET updateQuery(String __string){
 
 
-            try{
-                 stmt.execute(__string);
-                return SQLRET.SUCCESS;
-            }
-            catch(java.sql.SQLException ex) {
-                System.out.println(ex);
-                return SQLRET.FAIL;
-            }
+    public SQLRET updateQuery(String __string) throws SQLException {
+
+        stmt.execute(__string);
 
     }
     public void close() throws SQLException {
