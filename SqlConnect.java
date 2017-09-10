@@ -1,7 +1,5 @@
 package MySqlJava;
 
-import MySqlJava.dbParams;
-
 import java.sql.*;
 
 /**
@@ -22,7 +20,7 @@ public class SqlConnect {
         TIMESTAMP
     }
 
-    public SqlConnect(dbParams __dbParams ) throws SQLException {
+    public SqlConnect(DbParams __dbParams ) throws SQLException {
 
         try{
             Class.forName("com.mysql.jdbc.Driver");

@@ -8,7 +8,7 @@ public class Chunk {
     private int chunkIndex;
     private String query;
 
-    public Chunk(dbParams __dbParams, String __query, int __chunkSize) throws SQLException{
+    public Chunk(DbParams __dbParams, String __query, int __chunkSize) throws SQLException{
         sqlConnect = new SqlConnect(__dbParams);
         CHUNK=__chunkSize;
         chunkIndex =0;
