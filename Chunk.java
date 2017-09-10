@@ -4,7 +4,7 @@ import java.sql.*;
 public class Chunk {
     private SqlConnect sqlConnect;
     private int CHUNK;
-    private ResultSet resultSet;
+    public ResultSet resultSet;
     private int chunkIndex;
     private String query;
 
