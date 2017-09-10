@@ -111,6 +111,7 @@ public class SqlConnect {
                 _query += _columns.get(i) + ", ";
             }
         }
+        _query =  _query.substring(0, _query.length()-2);
         _query += " from " + dbParams.dbName + "." + __tableSource;
         return _query;
 
