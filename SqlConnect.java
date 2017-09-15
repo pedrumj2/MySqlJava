@@ -105,7 +105,7 @@ public class SqlConnect {
         return _output;
     }
 
-    public String insertQuery(ResultSet __resultSet, String __id, String __tableSource, String __tableDest) throws SQLException {
+    public String copyQuery(ResultSet __resultSet, String __id, String __tableSource, String __tableDest, String __where) throws SQLException {
         String _query = "insert into " +dbParams.dbName + "." + __tableDest + "(";
         List<String> _columns = SqlConnect.getColumns(__resultSet);
 
@@ -123,7 +123,7 @@ public class SqlConnect {
             }
         }
         _query =  _query.substring(0, _query.length()-2);
-        _query += " from " + dbParams.dbName + "." + __tableSource;
+        _query += " from " + dbParams.dbName + "." + __tableSource + __where;
         return _query;
     }
 
